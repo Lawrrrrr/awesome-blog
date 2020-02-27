@@ -19,6 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -82,5 +83,8 @@
             <span class="font-weight-bold text-white">Copyright © 2020 Dwitter.com</span>
         </div> --}}
     </div>
+
+    {{-- Font Awesome --}}
+    <script src="https://kit.fontawesome.com/1a29903647.js" crossorigin="anonymous"></script>
 </body>
 </html>

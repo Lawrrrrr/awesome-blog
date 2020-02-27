@@ -8,6 +8,10 @@
     bottom: 0;
 }
 
+.footer {
+    bottom: 0;
+}
+
 .centered {
     position: absolute;
     top: 50%;
