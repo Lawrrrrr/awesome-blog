@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // $posts = auth()->user()->posts()->orderBy('created_at', 'desc')->get();
+        $posts = auth()->user()->posts->sortByDesc('created_at');
+
+        return view('home', compact('posts'));
     }
+
 }

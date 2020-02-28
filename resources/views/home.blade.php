@@ -42,8 +42,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-center m-3 p-3 bg-secondary">
-                                <h3>{{ $posts->count() }}</h3>
-                                <span>Blogs Posted</span>
+                                <h3 class="text-white">{{ $posts->count() }}</h3>
+                                <span class="text-white">Blogs Posted</span>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                 <form action="{{ route('post') }}" method="post">
                     @csrf
                     <div class="form-group p-2">
-                        <textarea name="content" rows="5" name="" id="" class="form-control" placeholder="Share your thoughts..."></textarea>
+                        <textarea name="content" rows="3" name="" id="" class="form-control" placeholder="Share your thoughts..."></textarea>
                         <div class="text-right p-2">
                             <input type="submit" value="Post" class="btn btn-primary">
                         </div>
@@ -72,23 +72,24 @@
                     <div class="row mb-md-3">
                         <div class="blog col-md-12">
                             <div class="card">
-                                <form action="" method="get">
-                                    @csrf
-                                    <div class="form-group card-header text-right">
-                                        <button type="submit" class="btn btn-warning"><i class="far fa-edit"></i></button>
+                                <div class="form-group card-header">
+                                    <form action="{{ route('posts.delete', ['id' => $post->id]) }}" method="POST" class="float-md-right">
+                                        @method('DELETE')
+                                        @csrf
+                                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-warning"><i class="far fa-edit"></i></a>
                                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                                <div class="form-group card-body">
+                                    <div class="body">
+                                        <p>
+                                            {{ $post->content }}
+                                        </p>
                                     </div>
-                                    <div class="form-group card-body">
-                                        <div class="body">
-                                            <p>
-                                                {{ $post->content }}
-                                            </p>
-                                        </div>
-                                        <div class="footer">
-                                            <span class="text-secondary font-italic">-- Posted on {{ $post->updated_at }}</span>
-                                        </div>
+                                    <div class="footer">
+                                        <span class="text-secondary font-italic">-- Posted on {{ $post->updated_at->diffForHumans() }}</span>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
