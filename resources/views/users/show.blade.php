@@ -5,18 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-                <img src="../images/web.jpg" alt="" class="card-img-top p-5">
+                <img src="../../images/web.jpg" alt="" class="card-img-top p-5">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-center">
                                 <span>
-                                    <h3>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h3>
+                                    <h3>{{ $user->first_name }} {{ $user->last_name }}</h3>
                                 </span>
                                 <form action="" method="get">
                                     @csrf
-                                    {{-- <input type="submit" class="btn btn-primary" value="Edit Profile"> --}}
-                                    <a href="{{ route('home.edit') }}" class="btn btn-primary">Edit Profile</a>
+                                    <input type="submit" class="btn btn-primary" value="Follow">
                                 </form>
                             </div>
                             @if (session('status'))
@@ -43,7 +42,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-center m-3 p-3 bg-secondary rounded">
-                                <h3 class="text-white">{{ auth()->user()->posts->count() }}</h3>
+                                <h3 class="text-white">{{ $posts->count() }}</h3>
                                 <span class="text-white">Blogs Posted</span>
                             </div>
                         </div>
@@ -53,33 +52,16 @@
             </div>
         </div>
         <div class="col-md-7">
-            <div class="bg-light border rounded">
-                <form action="{{ route('post') }}" method="post">
-                    @csrf
-                    <div class="form-group p-2">
-                        <textarea name="content" rows="3" name="" id="" class="form-control" placeholder="Share your thoughts..."></textarea>
-                        <div class="text-right p-2">
-                            <input type="submit" value="Post" class="btn btn-primary">
-                        </div>
-                    </div>
-                </form>
-            </div>
-
             <div class="bg-light mt-md-4 p-md-3 border rounded">
                 <div class="header text-center m-md-3">
                     <h4 class="font-weight-bold">Blogs</h4>
+                    {{-- <h4 class="font-weight-bold text-danger">You are not following this user</h4> --}}
                 </div>
                 @foreach ($posts as $post)
                     <div class="row mb-md-3">
                         <div class="blog col-md-12">
                             <div class="card">
                                 <div class="form-group card-header">
-                                    <form action="{{ route('posts.delete', ['id' => $post->id]) }}" method="POST" class="float-md-right">
-                                        @method('DELETE')
-                                        @csrf
-                                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-warning"><i class="far fa-edit"></i></a>
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
                                 </div>
                                 <div class="form-group card-body">
                                     <div class="body">

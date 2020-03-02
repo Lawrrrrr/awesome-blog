@@ -18,10 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/edit', 'HomeController@edit')->name('home.edit');
 Route::get('/users', 'UserController@list')->name('users.list');
 Route::get('/post/{id}/edit', 'PostController@edit')->name('posts.edit');
+Route::get('/user/{id}/show', 'UserController@show')->name('users.show');
+// Route::get('/user/{id}/show', 'UserController@posts')->name('users.show');
 
 Route::post('/post', 'PostController@store')->name('post');
 Route::post('/post/{id}/update', 'PostController@update')->name('posts.update');
 
 Route::delete('/post/{id}/delete', 'PostController@delete')->name('posts.delete');
+
+Route::patch('/home/update', 'HomeController@update')->name('home.update');

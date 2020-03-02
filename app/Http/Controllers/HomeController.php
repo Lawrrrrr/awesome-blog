@@ -30,4 +30,27 @@ class HomeController extends Controller
         return view('home', compact('posts'));
     }
 
+    public function edit()
+    {
+        return view('edit');
+    }
+
+    public function update(Request $request)
+    {
+
+        $request->validate([
+            "first_name" => "required|max:255",
+            "last_name" => "required|max:255",
+            "new_password" => "required|max:255|min:8|confirmed"
+        ]);
+        // dd($request->all());
+        auth()->user()->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            "new_password" => $request->new_password
+        ]);
+
+        return redirect()->route('home');
+    }
+
 }
