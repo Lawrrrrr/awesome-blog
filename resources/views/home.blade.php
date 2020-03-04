@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+@endsection
+
 @section('content')
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-                <img src="../images/web.jpg" alt="" class="card-img-top p-5">
+                <img src="{{ asset('images/' . auth()->user()->avatar) }}" alt="" class="card-img-top p-5 img-fluid">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -13,11 +17,9 @@
                                 <span>
                                     <h3>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h3>
                                 </span>
-                                <form action="" method="get">
-                                    @csrf
-                                    {{-- <input type="submit" class="btn btn-primary" value="Edit Profile"> --}}
-                                    <a href="{{ route('home.edit') }}" class="btn btn-primary">Edit Profile</a>
-                                </form>
+                                {{-- <input type="submit" class="btn btn-primary" value="Edit Profile"> --}}
+                                <a href="{{ route('home.edit') }}" class="btn btn-primary mb-md-2">Edit Profile</a></br>
+                                <a href="{{ route('home.change_avatar') }}" class="btn btn-primary">Change Avatar</a>
                             </div>
                             @if (session('status'))
                                 <div class="alert alert-success" role="alert">
@@ -29,14 +31,14 @@
                     <div class="row">
                         <div class="col-md-6 pt-md-3">
                             <div class="text-center">
-                                <h2 class="text-info">3</h2>
-                                <span>Following</span>
+                                <h2 class="text-info"><a href="{{ route('users.following', ['followed_id' => auth()->user()->id]) }}">{{ auth()->user()->followedUsers()->count() }}</a></h2>
+                                <a href="{{ route('users.following', ['followed_id' => auth()->user()->id]) }}"><span>Following</span></a>
                             </div>
                         </div>
                         <div class="col-md-6 pt-md-3">
                             <div class="text-center">
-                                <h2 class="text-info">3</h2>
-                                <span>Following</span>
+                                <h2 class="text-info"><a href="{{ route('users.followers', ['followed_id' => auth()->user()->id]) }}">{{ auth()->user()->followers()->count() }}</a></h2>
+                                <a href="{{ route('users.followers', ['followed_id' => auth()->user()->id]) }}"><span>Followers</span></a>
                             </div>
                         </div>
                     </div>

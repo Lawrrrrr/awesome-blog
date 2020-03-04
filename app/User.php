@@ -15,9 +15,11 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'first_name', 'last_name', 'email', 'password',
-    ];
+    // protected $fillable = [
+    //     'first_name', 'last_name', 'avatar', 'email', 'password',
+    // ];
+
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -41,4 +43,24 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+
+    public function followers()
+    {
+        // Getting all followers of this user
+        return $this->belongsToMany('App\User', 'relationships',
+        'followed_id', 'follower_id')->withTimestamps();
+    }
+
+    public function followedUsers()
+    {
+        // Getting all the users followed by this current user
+        return $this->belongsToMany('App\User', 'relationships',
+        'follower_id', 'followed_id')->withTimestamps();
+    }
+
+    public function isFollowing($followed_id)
+    {
+        return $this->followedUsers()->where('followed_id', $followed_id)->exists();
+    }
+
 }
